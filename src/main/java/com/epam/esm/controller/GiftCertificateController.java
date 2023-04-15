@@ -57,39 +57,6 @@ public class GiftCertificateController {
         return certificateDto;
     }
 
-//    @PatchMapping(value = "/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
-//    public String updateCertificate(@RequestParam Map<String, String> parameters, @PathVariable Long id) {
-//
-//        String price = parameters.get("price");
-//        String duration = parameters.get("duration");
-//        String tags = parameters.get("tags");
-//
-//        GiftCertificate certificate = GiftCertificate.builder()
-//                .id(id)
-//                .name(parameters.get("name"))
-//                .description(parameters.get("description"))
-//                .build();
-//
-//        if (price != null) {
-//            certificate.setPrice(Double.parseDouble(price));
-//        }
-//        if (duration != null) {
-//            certificate.setDuration(Integer.parseInt(duration));
-//        }
-//
-//        String[] tagsArray = tags.split(",");
-//        List<Tag> tagsList = new ArrayList<>();
-//        for (String tagName: tagsArray) {
-//            Tag tag = Tag.builder().name(tagName).build();
-//            Tag tagNew = tagDao.save(tag).get();
-//            tagsList.add(tagNew);
-//        }
-//
-//        GiftCertificate certificateNew = giftCertificateDao.update(certificate);
-//
-//        return certificateNew + " -- " + tagsList;
-//    }
-
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteCertificateById(@PathVariable Long id) {

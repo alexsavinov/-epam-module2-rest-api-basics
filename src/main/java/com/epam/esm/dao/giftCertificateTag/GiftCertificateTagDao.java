@@ -43,6 +43,7 @@ public class GiftCertificateTagDao {
     }
 
     private String generateFindQuery(SearchRequest searchRequest) {
+
         StringBuilder query = new StringBuilder(SQL_SEARCH_PART_SELECT);
 
         if (searchRequest.getTag() == null) {
@@ -79,6 +80,7 @@ public class GiftCertificateTagDao {
     }
 
     private String addConditionToQuery(String fieldValue, String fieldExpression) {
+
         if (fieldValue != null) {
             return fieldExpression + SQL_AND;
         }
