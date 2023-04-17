@@ -42,6 +42,47 @@ public class GiftCertificateTagDao {
         jdbcTemplate = new JdbcTemplate(dataSource, false);
     }
 
+    public List<GiftCertificate> findCertificateWithSearchParams(SearchRequest searchRequest) {
+
+        String query = generateFindQuery(searchRequest);
+        Object[] params = generateFindParams(searchRequest);
+
+        List<GiftCertificate> entities = jdbcTemplate.query(
+                query,
+                params,
+                new GiftCertificateRowMapper());
+
+        return entities;
+    }
+
+    public void deleteLinkOfCertificateAndTags(Long certificateId) {
+        jdbcTemplate.update(
+                SQL_DELETE_ALL_TAGS_OF_CERTIFICATE,
+                new Object[]{certificateId});
+    }
+
+    public void updateCertificateWithTag(Long certificateId, Long tagId) {
+
+        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("gift_certificate_tag");
+
+        final Map<String, Object> parameters = new HashMap<>();
+        parameters.put("id_cert", certificateId);
+        parameters.put("id_tag", tagId);
+
+        simpleJdbcInsert.execute(parameters);
+    }
+
+    public List<Tag> findTagsByCertificateId(Long id) {
+
+        List<Tag> entities = jdbcTemplate.query(
+                SQL_FIND_CERTIFICATE_TAGS,
+                new Object[]{id},
+                new TagRowMapper());
+
+        return entities;
+    }
+
     private String generateFindQuery(SearchRequest searchRequest) {
 
         StringBuilder query = new StringBuilder(SQL_SEARCH_PART_SELECT);
@@ -101,7 +142,7 @@ public class GiftCertificateTagDao {
 
             query.append(addOrderToQuery(sortByName, "gc.name "));
             query.append(addOrderToQuery(sortByCreateDate, "gc.create_date "));
-            query.append(addOrderToQuery(sortByUpdateDate, "gc.name "));
+            query.append(addOrderToQuery(sortByUpdateDate, "gc.last_update_date "));
 
             query.delete(query.length() - SQL_COMMA.length(), query.length());
         }
@@ -132,58 +173,16 @@ public class GiftCertificateTagDao {
 
         List<Object> params = new ArrayList<>();
 
+        if (tagName != null) {
+            params.add(tagName);
+        }
         if (certificateName != null) {
             params.add(String.format("%%%s%%", certificateName));
         }
         if (certificateDescription != null) {
             params.add(String.format("%%%s%%", certificateDescription));
         }
-        if (tagName != null) {
-            params.add(tagName);
-        }
 
         return params.toArray();
-    }
-
-    public List<GiftCertificate> findCertificateWithSearchParams(SearchRequest searchRequest) {
-
-        String query = generateFindQuery(searchRequest);
-        Object[] params = generateFindParams(searchRequest);
-
-        List<GiftCertificate> entities = jdbcTemplate.query(
-                query,
-                params,
-                new GiftCertificateRowMapper());
-
-        return entities;
-    }
-
-    public void deleteLinkOfCertificateAndTags(Long certificateId) {
-        jdbcTemplate.update(
-                SQL_DELETE_ALL_TAGS_OF_CERTIFICATE,
-                new Object[]{certificateId});
-    }
-
-    public void updateCertificateWithTag(Long certificateId, Long tagId) {
-
-        SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("gift_certificate_tag");
-
-        final Map<String, Object> parameters = new HashMap<>();
-        parameters.put("id_cert", certificateId);
-        parameters.put("id_tag", tagId);
-
-        simpleJdbcInsert.execute(parameters);
-    }
-
-
-    public List<Tag> findTagsByCertificateId(Long id) {
-
-        List<Tag> entities = jdbcTemplate.query(
-                SQL_FIND_CERTIFICATE_TAGS,
-                new Object[]{id},
-                new TagRowMapper());
-
-        return entities;
     }
 }

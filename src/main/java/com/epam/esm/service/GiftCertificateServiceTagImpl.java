@@ -43,9 +43,9 @@ public class GiftCertificateServiceTagImpl implements GiftCertificateTagService 
 
     @Override
     @Transactional
-    public List<Tag> updateTagsByCertificateId(Long tagId, List<CreateTagRequest> createTagRequests) {
-        log.debug("Updating certificate id {} with {} tags", tagId, createTagRequests.size());
-        certificateTagDao.deleteLinkOfCertificateAndTags(tagId);
+    public List<Tag> updateTagsByCertificateId(Long certificateId, List<CreateTagRequest> createTagRequests) {
+        log.debug("Updating certificate id {} with {} tags", certificateId, createTagRequests.size());
+        certificateTagDao.deleteLinkOfCertificateAndTags(certificateId);
 
         List<Tag> tags = createTagRequests
                 .stream()
@@ -53,9 +53,9 @@ public class GiftCertificateServiceTagImpl implements GiftCertificateTagService 
                 .toList();
 
         tags.forEach(tag -> certificateTagDao
-                .updateCertificateWithTag(tagId, tag.getId()));
+                .updateCertificateWithTag(certificateId, tag.getId()));
 
-        log.info("Updated certificate id {} with {} tags", tagId, tags.size());
+        log.info("Updated certificate id {} with {} tags", certificateId, tags.size());
         return tags;
     }
 }

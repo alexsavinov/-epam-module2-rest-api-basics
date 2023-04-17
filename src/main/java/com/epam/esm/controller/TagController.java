@@ -41,6 +41,7 @@ public class TagController {
     }
 
     @PutMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public TagDto addTag(@RequestBody CreateTagRequest createTagRequest) {
         Tag tag = tagService.create(createTagRequest);
         TagDto tagDto = tagMapper.toDto(tag);
