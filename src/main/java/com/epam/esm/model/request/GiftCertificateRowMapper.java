@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GiftCertificateRowMapper implements RowMapper<GiftCertificate> {
+
     public GiftCertificate mapRow(ResultSet resultSet, int i) throws SQLException {
         GiftCertificate entity = new GiftCertificate();
         entity.setId(resultSet.getLong("id"));

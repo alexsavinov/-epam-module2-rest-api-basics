@@ -1,9 +1,7 @@
 package com.epam.esm.dao.giftCertificateTag;
 
 import com.epam.esm.dao.DatabaseConfig;
-import com.epam.esm.dao.giftCertificate.GiftCertificateDao;
 import com.epam.esm.model.dto.SearchRequest;
-import com.epam.esm.model.entity.GiftCertificate;
 import com.zaxxer.hikari.HikariDataSource;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,11 +10,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)

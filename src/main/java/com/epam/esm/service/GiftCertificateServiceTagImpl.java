@@ -7,7 +7,6 @@ import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.model.entity.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +14,6 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Component
 @RequiredArgsConstructor
 public class GiftCertificateServiceTagImpl implements GiftCertificateTagService {
 

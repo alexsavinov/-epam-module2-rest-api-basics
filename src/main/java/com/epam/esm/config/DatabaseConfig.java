@@ -11,7 +11,6 @@ import org.springframework.core.env.Environment;
 @ComponentScan(basePackages = "com.epam.esm")
 public class DatabaseConfig implements EnvironmentAware {
     private Environment environment;
-    private static HikariConfig config = new HikariConfig();
 
     @Override
     public void setEnvironment(final Environment environment) {
@@ -21,6 +20,7 @@ public class DatabaseConfig implements EnvironmentAware {
     @Bean
     @Scope("singleton")
     public HikariDataSource DataSource() {
+        HikariConfig config = new HikariConfig();
 
         config.setJdbcUrl(environment.getProperty("jdbc.url"));
         config.setUsername(environment.getProperty("jdbc.username"));

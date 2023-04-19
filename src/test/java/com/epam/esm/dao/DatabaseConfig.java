@@ -8,13 +8,10 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class DatabaseConfig  {
-    private static HikariDataSource dataSource;
-    private static HikariConfig config = new HikariConfig();
-    private static Properties properties;
 
     public static HikariDataSource DataSource() throws IOException {
 
-        properties = new Properties();
+        Properties properties = new Properties();
 
         Thread currentThread = Thread.currentThread();
         ClassLoader contextClassLoader = currentThread.getContextClassLoader();
@@ -22,16 +19,15 @@ public class DatabaseConfig  {
                 .getResourceAsStream("application.properties");
         properties.load(propertiesStream);
 
-        config = new HikariConfig();
+        HikariConfig config = new HikariConfig();
 
         config.setDriverClassName(properties.getProperty("jdbc.driver-class-name"));
         config.setJdbcUrl(properties.getProperty("jdbc.url"));
         config.setUsername(properties.getProperty("jdbc.username"));
         config.setPassword(properties.getProperty("jdbc.password"));
 
-        dataSource = new HikariDataSource(config);
+        HikariDataSource dataSource = new HikariDataSource(config);
 
         return dataSource;
     }
-
 }

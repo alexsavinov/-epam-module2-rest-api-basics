@@ -12,6 +12,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GiftCertificate {
+
     private Long id;
     private String name;
     private String description;

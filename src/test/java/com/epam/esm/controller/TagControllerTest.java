@@ -127,7 +127,7 @@ class TagControllerTest {
         when(tagService.create(any(CreateTagRequest.class))).thenReturn(tag);
         when(tagMapper.toDto(any(Tag.class))).thenReturn(tagDto);
 
-        RequestBuilder requestBuilder = put("/tags")
+        RequestBuilder requestBuilder = post("/tags")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .characterEncoding("UTF-8")
                 .content(objectMapper.writeValueAsString(tag))
@@ -137,7 +137,6 @@ class TagControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id").value(tagDto.getId().toString()))
                 .andExpect(jsonPath("$.name").value(tagDto.getName()));
-//                .andDo(print());
 
 //        verify(tagService).create(createTagRequest);
         verify(tagMapper).toDto(tag);

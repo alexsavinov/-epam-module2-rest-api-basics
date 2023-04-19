@@ -9,5 +9,5 @@ public class UpdateGiftCertificateRequest {
     private String name;
     private String description;
     private Double price;
-    private int duration;
+    private Integer duration;
 }

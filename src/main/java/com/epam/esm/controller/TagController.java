@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 @RequestMapping({"/tags"})
 public class TagController {
 
-    private final TagService tagService;
     private final TagMapper tagMapper;
+    private final TagService tagService;
 
     @GetMapping(value = "/{id}")
     public TagDto getTagById(@PathVariable Long id) {
@@ -40,7 +40,7 @@ public class TagController {
         return tagsDto;
     }
 
-    @PutMapping
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TagDto addTag(@RequestBody CreateTagRequest createTagRequest) {
         Tag tag = tagService.create(createTagRequest);

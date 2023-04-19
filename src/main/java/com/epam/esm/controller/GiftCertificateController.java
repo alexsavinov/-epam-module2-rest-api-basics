@@ -1,8 +1,6 @@
 package com.epam.esm.controller;
 
-import com.epam.esm.model.dto.CreateGiftCertificateRequest;
-import com.epam.esm.model.dto.GiftCertificateDto;
-import com.epam.esm.model.dto.GiftCertificateWithTagsDto;
+import com.epam.esm.model.dto.*;
 import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.model.entity.Tag;
 import com.epam.esm.service.GiftCertificateService;
@@ -49,10 +47,20 @@ public class GiftCertificateController {
         return certificatesDto;
     }
 
-    @PutMapping
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public GiftCertificateDto addCertificate(@RequestBody CreateGiftCertificateRequest createCertificateRequest) {
         GiftCertificate certificate = certificateService.create(createCertificateRequest);
         GiftCertificateDto certificateDto = certificateMapper.toDto(certificate);
+
+        return certificateDto;
+    }
+
+
+    @PatchMapping
+    public GiftCertificateDto updateCertificate(@RequestBody UpdateGiftCertificateRequest updateRequest) {
+        GiftCertificate updatedCertificate = certificateService.update(updateRequest);
+        GiftCertificateDto certificateDto = certificateMapper.toDto(updatedCertificate);
 
         return certificateDto;
     }

@@ -40,9 +40,29 @@ public class GiftCertificateTagController {
         return tagsDto;
     }
 
-    @PostMapping
-    public List<GiftCertificateDto> searchCertificateWithSearchParams(
-            @RequestBody SearchRequest searchRequest) {
+    @GetMapping
+    public List<GiftCertificateDto> searchCertificatesWithSearchParams(
+            @RequestParam(required = false) String tag,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String description,
+            @RequestParam(required = false) List<String> sortBy,
+            @RequestParam(required = false) List<String> sortDirection) {
+
+        SearchRequest searchRequest = new SearchRequest();
+        searchRequest.setTag(tag);
+        searchRequest.setName(name);
+        searchRequest.setDescription(description);
+
+        for (int i = 0; i < sortBy.size(); i++) {
+            String sortDirectionValue = sortDirection.get(i);
+            if (sortBy.get(i).equals("name")) {
+                searchRequest.setSortByName(sortDirectionValue);
+            } else if (sortBy.get(i).equals("createDate")) {
+                searchRequest.setSortByUpdateDate(sortDirectionValue);
+            } else if (sortBy.get(i).equals("updateDate")) {
+                searchRequest.setSortByCreateDate(sortDirectionValue);
+            }
+        }
 
         List<GiftCertificate> certificates = certificateTagService
                 .findCertificateWithSearchParams(searchRequest);

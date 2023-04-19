@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class TagMapper {
+
     public Tag toTag(CreateTagRequest createRequest) {
         return Tag.builder()
                 .name(createRequest.getName())

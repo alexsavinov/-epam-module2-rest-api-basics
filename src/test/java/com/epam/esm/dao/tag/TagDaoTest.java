@@ -26,12 +26,12 @@ class TagDaoTest {
             "DROP TABLE IF EXISTS tag";
     private static String SQL_CREATE_TABLE_TAG =
             "CREATE TABLE tag (" +
-            "    id IDENTITY NOT NULL PRIMARY KEY," +
-            "    name character varying(50) UNIQUE NOT NULL);";
+                    "    id IDENTITY NOT NULL PRIMARY KEY," +
+                    "    name character varying(50) UNIQUE NOT NULL);";
     private static String SQL_INSERT_TAGS =
             "INSERT INTO tag (name) VALUES ('tag1');" +
-            "INSERT INTO tag (name) VALUES ('tag2');" +
-            "INSERT INTO tag (name) VALUES ('tag3');";
+                    "INSERT INTO tag (name) VALUES ('tag2');" +
+                    "INSERT INTO tag (name) VALUES ('tag3');";
 
     @BeforeAll
     public static void init() throws IOException {
@@ -118,5 +118,4 @@ class TagDaoTest {
 
         assertThat(tagDao.findById(1L)).isEqualTo(Optional.empty());
     }
-
 }

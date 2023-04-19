@@ -15,7 +15,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -34,7 +33,6 @@ class TagServiceImplTest {
     private CreateTagRequest createRequest;
     @Mock
     private UpdateTagRequest updateRequest;
-
     @InjectMocks
     private TagServiceImpl subject;
 

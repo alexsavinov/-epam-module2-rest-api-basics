@@ -6,53 +6,56 @@ import com.epam.esm.exception.TagAlreadyExistsException;
 import com.epam.esm.exception.TagNotFoundException;
 import com.epam.esm.model.entity.CustomErrorResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    private HttpStatus httpStatus;
+
     @ExceptionHandler(TagNotFoundException.class)
-    public ResponseEntity<CustomErrorResponse> handleTagNotFound(Exception ex, WebRequest request) {
-        httpStatus = HttpStatus.NOT_FOUND;
-
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomErrorResponse handleTagNotFound(Exception ex) {
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setErrorMessage(ex.getMessage());
-        errors.setErrorCode(Integer.parseInt(httpStatus.value() + "01"));
+        errors.setErrorCode(40401);
 
-        return new ResponseEntity<>(errors, httpStatus);
+        return errors;
     }
+
     @ExceptionHandler(TagAlreadyExistsException.class)
-    public ResponseEntity<CustomErrorResponse> handleTagAlreadyExists(Exception ex, WebRequest request) {
-        httpStatus = HttpStatus.CONFLICT;
-
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public CustomErrorResponse handleTagAlreadyExists(Exception ex) {
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setErrorMessage(ex.getMessage());
-        errors.setErrorCode(Integer.parseInt(httpStatus.value() + "01"));
+        errors.setErrorCode(40901);
 
-        return new ResponseEntity<>(errors, httpStatus);
+        return errors;
     }
+
     @ExceptionHandler(GiftCertificateNotFoundException.class)
-    public ResponseEntity<CustomErrorResponse> handleGiftCertificateNotFound(Exception ex, WebRequest request) {
-        httpStatus = HttpStatus.NOT_FOUND;
-
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public CustomErrorResponse handleGiftCertificateNotFound(Exception ex) {
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setErrorMessage(ex.getMessage());
-        errors.setErrorCode(Integer.parseInt(httpStatus.value() + "02"));
+        errors.setErrorCode(40402);
 
-        return new ResponseEntity<>(errors, httpStatus);
+        return errors;
     }
-    @ExceptionHandler(GiftCertificateAlreadyExistsException.class)
-    public ResponseEntity<CustomErrorResponse> handleGiftCertificateAlreadyExists(Exception ex, WebRequest request) {
-        httpStatus = HttpStatus.CONFLICT;
 
+    @ExceptionHandler(GiftCertificateAlreadyExistsException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public CustomErrorResponse handleGiftCertificateAlreadyExists(Exception ex) {
         CustomErrorResponse errors = new CustomErrorResponse();
         errors.setErrorMessage(ex.getMessage());
-        errors.setErrorCode(Integer.parseInt(httpStatus.value() + "02"));
+        errors.setErrorCode(40902);
 
-        return new ResponseEntity<>(errors, httpStatus);
+        return errors;
     }
 }

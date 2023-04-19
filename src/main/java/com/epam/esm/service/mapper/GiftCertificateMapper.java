@@ -15,8 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GiftCertificateMapper {
 
-    private final TagMapper tagMapper;
-
     public GiftCertificate toGiftCertificate(CreateGiftCertificateRequest createRequest) {
         return GiftCertificate.builder()
                 .name(createRequest.getName())
@@ -39,6 +37,8 @@ public class GiftCertificateMapper {
     }
 
     public GiftCertificateWithTagsDto toDtoWithTags(GiftCertificate certificate, List<Tag> tags) {
+        TagMapper tagMapper = new TagMapper();
+
         return GiftCertificateWithTagsDto.builder()
                 .id(certificate.getId())
                 .name(certificate.getName())

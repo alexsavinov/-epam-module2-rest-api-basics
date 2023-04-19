@@ -9,7 +9,6 @@ import com.epam.esm.model.entity.GiftCertificate;
 import com.epam.esm.service.mapper.GiftCertificateMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import java.util.List;
 
 @Slf4j
 @Service
-@Component
 @RequiredArgsConstructor
 public class GiftCertificateServiceImpl implements GiftCertificateService {
 
@@ -64,7 +62,18 @@ public class GiftCertificateServiceImpl implements GiftCertificateService {
         log.debug("Updating a gift certificate with id {}", updateRequest.getId());
         GiftCertificate certificate = findById(updateRequest.getId());
 
-        certificate.setName(updateRequest.getName());
+        if (updateRequest.getName() != null) {
+            certificate.setName(updateRequest.getName());
+        }
+        if (updateRequest.getDescription() != null) {
+            certificate.setDescription(updateRequest.getDescription());
+        }
+        if (updateRequest.getPrice() != null) {
+            certificate.setPrice(updateRequest.getPrice());
+        }
+        if (updateRequest.getDuration() != null) {
+            certificate.setDuration(updateRequest.getDuration());
+        }
 
         GiftCertificate updatedCertificate = certificateDao.update(certificate);
 

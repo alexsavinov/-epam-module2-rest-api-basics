@@ -4,6 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class CreateGiftCertificateRequest {
+
     private String name;
     private String description;
     private Double price;

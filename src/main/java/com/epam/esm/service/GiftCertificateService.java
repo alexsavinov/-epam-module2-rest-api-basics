@@ -7,6 +7,7 @@ import com.epam.esm.model.entity.GiftCertificate;
 import java.util.List;
 
 public interface GiftCertificateService {
+
     GiftCertificate findById(Long id);
 
     List<GiftCertificate> findAll();
